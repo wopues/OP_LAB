@@ -2,9 +2,9 @@
 
 const iterate = (obj, callback) => {
   const keys = Object.keys(obj);
-  for (const key of keys) {
-    const value = obj[key];
-    callback(key, value, obj);
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    callback(key, obj[key], obj);
   }
 };
 

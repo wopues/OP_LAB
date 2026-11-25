@@ -1,5 +1,5 @@
 'use strict';
 
-const store = (x) => () => x;
+const store = (a) => () => a;
 
 module.exports = { store };

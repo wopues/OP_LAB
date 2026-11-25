@@ -5,8 +5,11 @@
 
 const unique = (array) => {
   const result = [];
-  for (const item of array) {
-    if (!result.includes(item)) result.push(item);
+  for (let i = 0; i < array.length; i++) {
+    const item = array[i];
+    if (!result.includes(item)) {
+      result.push(item);
+    }
   }
   return result;
 };

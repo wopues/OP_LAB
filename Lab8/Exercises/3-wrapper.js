@@ -1,19 +1,18 @@
 'use strict';
 
-const contract = (fn, ...types) => {
-  const argTypes = types.slice(0, -1);
-  const resultType = types[types.length - 1];
-  const check = (value, type) => {
-    if (typeof value !== type.name.toLowerCase()) {
-      throw new TypeError(`Expected ${type.name}, got ${typeof value}`);
+const contract = (fn, ...types) => (...args) => {
+  for (let i = 0; i < args.length; i++) {
+    const type = types[i].name.toLowerCase();
+    if (typeof args[i] !== type) {
+      throw new TypeError(`Аргумент ${i} має бути типу ${type}`);
     }
-  };
-  return (...args) => {
-    args.forEach((arg, i) => check(arg, argTypes[i]));
-    const result = fn(...args);
-    check(result, resultType);
-    return result;
-  };
+  }
+  const result = fn(...args);
+  const resultType = types[types.length - 1].name.toLowerCase();
+  if (typeof result !== resultType) {
+    throw new TypeError(`Результат має бути типу ${resultType}`);
+  }
+  return result;
 };
 
 module.exports = { contract };
