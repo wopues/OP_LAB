@@ -4,13 +4,13 @@ const compose = (...fns) => {
   const handlers = [];
   const composed = (x) => {
     let result = x;
-    for (let i = fns.length - 1; i >= 0; i--) {
-      try {
+    try {
+      for (let i = fns.length - 1; i >= 0; i--) {
         result = fns[i](result);
-      } catch (error) {
-        for (const handler of handlers) handler(error);
-        return undefined;
       }
+    } catch (error) {
+      for (const handler of handlers) handler(error);
+      result = undefined;
     }
     return result;
   };
